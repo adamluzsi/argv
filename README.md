@@ -1,4 +1,13 @@
-argv
-====
+ARGV
+========
 
-Simple ruby argv object extension for parsing flags
+Extension for ARGV obj.
+With this extension module, you can parse in an easy way the script input tags
+
+### example
+
+```ruby
+
+
+
+```
