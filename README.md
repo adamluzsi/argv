@@ -34,3 +34,27 @@ With this extension module, you can parse in an easy way the script input tags
     # [:test, :test, :this, :ok]
 
 ```
+
+#### For Modules
+
+if you write module and you want to have some custom tags and help msg for that,
+use the following example
+
+```ruby
+
+    require 'argv'
+
+    ARGVEXT.add_help_msg "This will show you the help msg (this)",:helper,:help,:h
+
+    #
+    # ARGVEXT.help_msg or show_help will read on your values and will produce the following with this example
+    #
+    #   This will show you the help msg (this)
+    #         --helper
+    #         --help
+    #          -h
+
+    # this will run on the terminal and break Process,
+    # if the user give one of the helper tags as argv
+
+```

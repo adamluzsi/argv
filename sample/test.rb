@@ -1,6 +1,7 @@
-require_relative "../lib/argv"
+require "argv"
 
 #$ ruby sample/test.rb --test test this ok
+ARGVEXT.help_msg
 
 puts ARGV.to_hash
 # {"--test"=>"test"}
