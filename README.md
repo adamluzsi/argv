@@ -10,51 +10,24 @@ With this extension module, you can parse in an easy way the script input tags
 
     require 'argv'
 
-    #> $ script.rb --test this --hello world --sup
+    #$ ruby sample/test.rb --test test this ok
 
-    puts ARGV.flag_tags
-    # {"--test"=>"this", "--hello"=>"world"}
+    puts ARGV.to_hash
+    # {"--test"=>"test"}
 
-    puts ARGV.flags.inspect
-    # ["--test", "--hello", "--sup"]
+    puts ARGV.to_hash( multi_value: true )
+    # {"--test"=>["test", "this", "ok"]}
 
-```
+    puts ARGV.to_hash( sym_key: true )
+    # {:test=>"test"}
 
-```ruby
-
-
-    #> $ script.rb  --test this --hello world --su-p asd sdsd -asd -dsa
-
-    puts ARGV.values.inspect
-    #> ["this", "world", "asd", "sdsd"]
-
-    puts ARGV.flagtags sym_key: true
-    #> {:test=>"this", :hello=>"world", :"su-p"=>"asd"}
-
-
-```
-
-```ruby
-
-
-    #> $ script.rb  --test this this multi value --hello world asdf
+    puts ARGV.to_hash( s: true, m: true )
+    # {:test=>["test", "this", "ok"]}
 
     puts ARGV.values.inspect
-    #> ["this", "world", "asd", "sdsd"]
+    # ["test", "this", "ok"]
 
-    puts ARGV.flagtags sym_key: true
-    #> {:test=>"this", :hello=>"world", :"su-p"=>"asd"}
-
-
-```
-
-### multi value use case
-
-```ruby
-
-    #> $ script.rb --test this --hello world --su-p asd sdsd -asd -dsa
-
-    puts ARGV.flag_multi_value.inspect
-    #> {"--test"=>["this"], "--hello"=>["world"], "--su-p"=>["asd", "sdsd"]}
+    puts ARGV.keys.inspect
+    # ["--test"]
 
 ```

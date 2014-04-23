@@ -1,9 +1,21 @@
-require_relative "../lib/configer.rb"
+require_relative "../lib/argv"
 
-Configer.mount_yaml
-Configer.mount_json
+#$ ruby sample/test.rb --test test this ok
 
-configer #> config
+puts ARGV.to_hash
+# {"--test"=>"test"}
 
-# for example we can call the root/sample/meta/test.yml file parsed data as
-puts configer.sample.meta.test #> { hello: world }
+puts ARGV.to_hash( multi_value: true )
+# {"--test"=>["test", "this", "ok"]}
+
+puts ARGV.to_hash( sym_key: true )
+# {:test=>"test"}
+
+puts ARGV.to_hash( s: true, m: true )
+# {:test=>["test", "this", "ok"]}
+
+puts ARGV.values.inspect
+# ["test", "this", "ok"]
+
+puts ARGV.keys.inspect
+# ["--test"]
