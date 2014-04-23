@@ -51,18 +51,23 @@ module ARGVEXT
   def flags
     self.select { |e| e[0].include?('-') }
   end
+
+  alias :flag :flags
   alias :tags :flags
   alias :keys :flags
 
   def flag_syms
     self.map { |e| e.to_s.gsub!(/^-*/,'').to_sym }
   end
+
+  alias :flag_sym :flag_syms
   alias :tag_syms :flag_syms
   alias :key_syms :flag_syms
 
   def values
     self.select { |e| !e[0].include?('-') }
   end
+
 
 end
 
