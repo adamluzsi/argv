@@ -19,3 +19,6 @@ puts ARGV.values.inspect
 
 puts ARGV.keys.inspect
 # ["--test"]
+
+puts ARGV.flag_syms.inspect
+# [:test, :test, :this, :ok]

@@ -30,4 +30,7 @@ With this extension module, you can parse in an easy way the script input tags
     puts ARGV.keys.inspect
     # ["--test"]
 
+    puts ARGV.flag_syms.inspect
+    # [:test, :test, :this, :ok]
+
 ```

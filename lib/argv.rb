@@ -12,7 +12,7 @@ module ARGVEXT
 
         next if self[index+1].nil?
         if self[index][0].include?('-') && !self[index+1][0].include?('-')
-          return_obj[( opts[:sym_key] ?  self[index].dup.to_s.gsub!(/^-*/,'').to_sym :  self[index] )]= self[index+1]
+          return_obj[( opts[:sym_key] ?  self[index].to_s.dup.gsub!(/^-*/,'').to_sym :  self[index] )]= self[index+1]
         end
 
       else
@@ -31,7 +31,7 @@ module ARGVEXT
               end
               index_at += 1
             end
-            return_obj[( opts[:sym_key] ?  self[index].dup.to_s.gsub!(/^-*/,'').to_sym :  self[index] )]= new_element
+            return_obj[( opts[:sym_key] ?  self[index].to_s.dup.gsub!(/^-*/,'').to_sym :  self[index] )]= new_element
 
           end
 
@@ -57,7 +57,7 @@ module ARGVEXT
   alias :keys :flags
 
   def flag_syms
-    self.map { |e| e.to_s.gsub!(/^-*/,'').to_sym }
+    self.map { |e| e.to_s.dup.gsub!(/^-*/,'').to_sym }
   end
 
   alias :flag_sym :flag_syms
