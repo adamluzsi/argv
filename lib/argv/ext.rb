@@ -59,7 +59,7 @@ module ARGVEXT
     alias :keys :flags
 
     def sym_flags
-      self.map { |e| e.to_s.dup.gsub!(/^-*/,'').to_sym }
+      self.flags.map { |e| e.to_s.dup.gsub!(/^-*/,'').to_sym }
     end
 
     alias :flag_syms  :sym_flags

@@ -58,3 +58,7 @@ use the following example
     # if the user give one of the helper tags as argv
 
 ```
+
+### Test
+
+* you can find a test file in the sample named as "test"

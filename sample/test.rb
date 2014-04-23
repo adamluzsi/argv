@@ -3,23 +3,24 @@ require "argv"
 #$ ruby sample/test.rb --test test this ok
 ARGVEXT.help_msg
 
-puts ARGV.to_hash
+puts "","original ARGV:",ARGV.inspect,""
+
+puts "hash from argv:",ARGV.to_hash,""
 # {"--test"=>"test"}
 
-puts ARGV.to_hash( multi_value: true )
+puts "multi valued hash:",ARGV.to_hash( multi_value: true ),""
 # {"--test"=>["test", "this", "ok"]}
 
-puts ARGV.to_hash( sym_key: true )
+puts "sym keyed hash:",ARGV.to_hash( sym_key: true ),""
 # {:test=>"test"}
 
-puts ARGV.to_hash( s: true, m: true )
+puts "sym keyed multi valued hash:",ARGV.to_hash( s: true, m: true ),""
 # {:test=>["test", "this", "ok"]}
 
-puts ARGV.values.inspect
+puts "argv values without the tags:",ARGV.values.inspect,""
 # ["test", "this", "ok"]
 
-puts ARGV.keys.inspect
+puts "argv tags, \"keys\":",ARGV.keys.inspect,""
 # ["--test"]
 
-puts ARGV.flag_syms.inspect
-# [:test, :test, :this, :ok]
+puts "symbolized flags:",ARGV.sym_flags.inspect,""
