@@ -1,7 +1,11 @@
 require "argv"
 
 #$ ruby sample/test.rb --test test this ok
-ARGVEXT.help_msg
+
+# new help
+ARGV.add_help "heeeelp meeeeee~~~",:no
+
+ARGV.show_help
 
 puts "","original ARGV:",ARGV.inspect,""
 
