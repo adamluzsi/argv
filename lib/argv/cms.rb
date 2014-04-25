@@ -8,6 +8,8 @@ module ARGVEXT
       return nil
     end
 
+    alias :add_help :add_help_msg
+
     def help_msg
 
       helper_sym= [:helper,:help,:h]
@@ -27,6 +29,7 @@ module ARGVEXT
 
       end
     end
+
     alias :show_help :help_msg
 
   end
