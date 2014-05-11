@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.description   = %q{ ARGV object extension for parsing flags, inputs, so you can have easy hash objects that contain tag value, and so on :) }
   spec.summary       = %q{ argv object extension for parsing flags, inputs }
 
-  spec.homepage      = "https://github.com/adamluzsi/#{__FILE__.split(File::Separator.last.split('.').first)}"
+  spec.homepage      = "https://github.com/adamluzsi/#{__FILE__.split(File::Separator).last.split('.').first}"
   spec.files         = `git ls-files`.split($/)
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
