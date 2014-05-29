@@ -62,8 +62,11 @@ module ARGVEXT
       self.flags.map { |e| e.to_s.dup.gsub!(/^-*/,'').to_sym }
     end
 
+    alias :sym_tags   :sym_flags
+
     alias :flag_syms  :sym_flags
     alias :flag_sym   :sym_flags
+
     alias :tag_syms   :sym_flags
     alias :key_syms   :sym_flags
 
