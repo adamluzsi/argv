@@ -2,79 +2,82 @@ module ARGVEXT
 
   module EXTENSION
 
-    def to_hash opts= {}
-      raise(ArgumentError) unless opts.class <= Hash
+    def to_hash(opts={})
 
-      opts[:sym_key]      ||= opts[:sk] ||  opts[:sym]  || opts[:s]
-      opts[:multi_value]  ||= opts[:mv] ||  opts[:m]
+      multi_value = if opts.class <= Hash
+                      opt_keys    = %W[ multi_value mv m ]
+                      !!(opts.find{ |k,v| opt_keys.include?(k.to_s) })
+                    else
+                      !!opts
+                    end
 
-      return_obj= {}
-      self.count.times do |index|
-        unless opts[:multi_value]
+      return (0..self.size).reduce({}) do |return_obj,index|
 
-          next if self[index+1].nil?
-          if self[index][0].include?('-') && !self[index+1][0].include?('-')
-            return_obj[( opts[:sym_key] ?  self[index].to_s.dup.gsub!(/^-*/,'').to_sym :  self[index] )]= self[index+1]
-          end
-
-        else
+        if !self[index+1].nil? && self[index][0] =~ /^--?/ && !(self[index+1][0] =~ /^--?/)
 
           begin
 
-            if self[index][0].include?('-') && !self[index+1][0].include?('-')
+            option_key = if self[index] =~ /^--\w+/
+                           self[index].sub(/^--/,'')
+                         else #if self[index] =~ /^-\w+/
+                           if (var = self[index].sub(/^-/,'').split('')).size == 1
+                             var[0]
+                           else
+                             var
+                           end
+                         end
 
-              new_element= []
-              index_at= index+1
-              loop do
-                if self[index_at].nil? || self[index_at].to_s[0].include?('-')
-                  break
-                else
-                  new_element.push(self[index_at])
-                end
-                index_at += 1
-              end
-              return_obj[( opts[:sym_key] ?  self[index].to_s.dup.gsub!(/^-*/,'').to_sym :  self[index] )]= new_element
-
-            end
+            return_obj[option_key] = if multi_value
+                             new_element= []
+                             index_at= index+1
+                             loop do
+                               if self[index_at].nil? || self[index_at].to_s[0].include?('-')
+                                 break
+                               else
+                                 new_element.push(self[index_at])
+                               end
+                               index_at += 1
+                             end
+                             new_element
+                           else
+                             # return_obj[self[index].sub(/^--?/,'')]=
+                             self[index+1]
+                           end
 
           rescue
           end
 
-
         end
+
+        #> for persist in memory the temp memory object
+        (return_obj)
+
       end
-      return return_obj
 
     end
 
-    alias :flagtag    :to_hash
-    alias :flagtags   :to_hash
+    # Mandatory arguments to long options are mandatory for short options too.
+    def short_options
+      self.select{ |e| e =~ /^-\w+$/ }.reduce([]){|m,o| o.scan(/\w+/).each{|e| m += e.split('') } ;m}
+    end;alias short_option_flags short_options
 
-    def flags
-      self.select { |e| e[0].include?('-') }
-    end
+    def long_options
+      self.select{ |e| e =~ /^--.*$/ }.reduce([]){|m,o| o.scan(/^--(.*)$/).each{|e| m += e } ;m}
+    end;alias long_option_flags  long_options
 
-    alias :flag :flags
-    alias :tags :flags
-    alias :keys :flags
-
-    def sym_flags
-      self.flags.map { |e| e.to_s.dup.gsub!(/^-*/,'').to_sym }
-    end
-
-    alias :sym_tags   :sym_flags
-
-    alias :flag_syms  :sym_flags
-    alias :flag_sym   :sym_flags
-
-    alias :tag_syms   :sym_flags
-    alias :key_syms   :sym_flags
+    def options
+      short_options + long_options
+    end;alias option_flags options
 
     def values
-      self.select { |e| !e[0].include?('-') }
-    end
+      self.select { |e| !(e[0] =~ /^-/) }
+    end;alias arguments values
 
   end
-
 end
 ARGV.__send__ :extend,ARGVEXT::EXTENSION
+
+# puts ARGV.respond_to?(:options)
+# puts ARGV.options.inspect
+# puts ARGV.values.inspect
+# puts ARGV.to_hash(true)
