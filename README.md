@@ -10,28 +10,34 @@ With this extension module, you can parse in an easy way the script input tags
 
     require 'argv'
 
-    #$ ruby sample/test.rb --test test this ok
+    #$ ruby sample/test.rb -x -zsa yo --test test this ok
 
-    puts ARGV.to_hash
-    # {"--test"=>"test"}
+        ARGV.to_hash
+        #> {"test"=>"test","zsa"=>"yo"}
 
-    puts ARGV.to_hash( multi_value: true )
-    # {"--test"=>["test", "this", "ok"]}
+        ARGV.to_hash(multi_value: true)
+        ARGV.to_hash(true)
+        #> {"test"=>["test", "this", "ok"],"zsa"=>["yo"]}
 
-    puts ARGV.to_hash( sym_key: true )
-    # {:test=>"test"}
+        ARGV.values
+        #> ["test", "this", "ok", "yo"]
 
-    puts ARGV.to_hash( s: true, m: true )
-    # {:test=>["test", "this", "ok"]}
+        ARGV.long_options
+        #> ["test"]
 
-    puts ARGV.values.inspect
-    # ["test", "this", "ok"]
+        ARGV.short_options
+        #> ["x","z","s","a"]
 
-    puts ARGV.keys.inspect
-    # ["--test"]
+        ARGV.options
+        #> ["x","z","s","a","test"]
 
-    puts ARGV.flag_syms.inspect
-    # [:test, :test, :this, :ok]
+    #$ ruby sample/test.rb -hy -sx as --hello-world test test2
+
+        ARGV.to_hash
+        #> {["s", "x"]=>"as", "hello-world"=>"test"}
+
+        ARGV.to_hash(true)
+        #> {["s", "x"]=>["as"], "hello-world"=>["test", "test2"]}
 
 ```
 
