@@ -13,11 +13,11 @@ With this extension module, you can parse in an easy way the script input tags
     #$ ruby sample/test.rb -x -zsa yo --test test this ok
 
         ARGV.to_hash
-        #> {"test"=>"test","zsa"=>"yo"}
+        #> {"test"=>"test",["z","s","a"]=>"yo"}
 
         ARGV.to_hash(multi_value: true)
         ARGV.to_hash(true)
-        #> {"test"=>["test", "this", "ok"],"zsa"=>["yo"]}
+        #> {"test"=>["test", "this", "ok"],["z","s","a"]=>["yo"]}
 
         ARGV.values
         #> ["test", "this", "ok", "yo"]
