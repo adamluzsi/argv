@@ -7,8 +7,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Adam Luzsi"]
   spec.email         = ["adamluzsi@gmail.com"]
 
-  spec.description   = %q{ ARGV object extension for parsing flags, inputs, so you can have easy hash objects that contain tag value, and so on :) }
-  spec.summary       = %q{ argv object extension for parsing flags, inputs }
+  spec.description   = %q{ ARGV object extension for ease of use of options and else terminal inputs. It can parse ARGV input into Hash object so you can work with ease, check GIT! }
+  spec.summary       = %q{ argv object extension for parsing terminal inputs as arguments/options }
 
   spec.homepage      = "https://github.com/adamluzsi/#{__FILE__.split(File::Separator).last.split('.').first}"
   spec.files         = `git ls-files`.split($/)
